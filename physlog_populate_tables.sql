@@ -46,14 +46,14 @@ VALUES
     ('Flute', '2024-11-16 18:00:00+00', '2024-11-16 20:00:00+00', 'Folk', 1, 5, 1, 5);
 
 -- Pricing Scheme
-INSERT INTO pricing_scheme (beginner_solo_price, advanced_solo_price, beginner_group_price, advanced_group_price, beginner_ensemble_price, advanced_ensemble_price, sibling_discount, start_time, end_time, is_active)
+INSERT INTO pricing_scheme (beginner_solo_price, advanced_solo_price, beginner_group_price, advanced_group_price, beginner_ensemble_price, advanced_ensemble_price, sibling_discount, start_time, end_time)
 VALUES
-    (50.00, 80.00, 40.00, 70.00, 60.00, 90.00, 10.00, '2024-01-01 00:00:00+00', '2024-12-31 23:59:59+00', TRUE);
+    (50.00, 80.00, 40.00, 70.00, 60.00, 90.00, 10.00, '2024-01-01 00:00:00+00', '2024-12-31 23:59:59+00');
 
 -- Rental Price Scheme
-INSERT INTO rental_price_scheme (monthly_cost, start_time, end_time, is_active)
+INSERT INTO rental_price_scheme (monthly_cost, start_time, end_time)
 VALUES
-    (30.00, '2024-01-01 00:00:00+00', '2024-12-31 23:59:59+00', TRUE);
+    (30.00, '2024-01-01 00:00:00+00', '2024-12-31 23:59:59+00');
 
 -- Students
 INSERT INTO student (ssn, name, mail, gender, contact_person_name, contact_person_phone_number, enrollment_date, phone_number)

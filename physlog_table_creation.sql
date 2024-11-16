@@ -69,8 +69,7 @@ CREATE TABLE pricing_scheme (
     advanced_ensemble_price FLOAT(50) NOT NULL,
     sibling_discount FLOAT(50),
     start_time TIMESTAMP WITH TIME ZONE NOT NULL,
-    end_time TIMESTAMP WITH TIME ZONE,
-    is_active BOOLEAN DEFAULT FALSE NOT NULL
+    end_time TIMESTAMP WITH TIME ZONE
 );
 
 ALTER TABLE pricing_scheme ADD CONSTRAINT PK_pricing_scheme PRIMARY KEY (id);
@@ -80,8 +79,7 @@ CREATE TABLE rental_price_scheme (
     id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
     monthly_cost FLOAT(50) NOT NULL,
     start_time TIMESTAMP WITH TIME ZONE NOT NULL,
-    end_time TIMESTAMP WITH TIME ZONE,
-    is_active BOOLEAN DEFAULT FALSE NOT NULL
+    end_time TIMESTAMP WITH TIME ZONE
 );
 
 ALTER TABLE rental_price_scheme ADD CONSTRAINT PK_rental_price_scheme PRIMARY KEY (id);
