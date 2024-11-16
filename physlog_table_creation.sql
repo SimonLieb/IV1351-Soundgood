@@ -29,14 +29,14 @@ CREATE TABLE instructor_address (
 
 ALTER TABLE instructor_address ADD CONSTRAINT PK_instructor_address PRIMARY KEY (instructor_id,address_id);
 ALTER TABLE instructor_address ADD CONSTRAINT FK_instructor_address_0 FOREIGN KEY (instructor_id) REFERENCES instructor (id) ON DELETE CASCADE;
-ALTER TABLE instructor_address ADD CONSTRAINT FK_instructor_address_1 FOREIGN KEY (address_id) REFERENCES address (id) ON DELETE SET NULL;
+ALTER TABLE instructor_address ADD CONSTRAINT FK_instructor_address_1 FOREIGN KEY (address_id) REFERENCES address (id) ON DELETE CASCADE;
 
 
 CREATE TABLE instructor_availability (
     id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
     start_time TIMESTAMP WITH TIME ZONE NOT NULL,
     end_time TIMESTAMP WITH TIME ZONE NOT NULL,
-    instructor_id INT
+    instructor_id INT NOT NULL
 );
 
 ALTER TABLE instructor_availability ADD CONSTRAINT PK_instructor_availability PRIMARY KEY (id);
@@ -52,7 +52,7 @@ CREATE TABLE lesson (
     min_num_of_students INT NOT NULL,
     max_num_of_students INT NOT NULL,
     lvl INT NOT NULL,
-    instructor_id INT NOT NULL
+    instructor_id INT
 );
 
 ALTER TABLE lesson ADD CONSTRAINT PK_lesson PRIMARY KEY (id);
@@ -109,7 +109,7 @@ CREATE TABLE student_address (
 
 ALTER TABLE student_address ADD CONSTRAINT PK_student_address PRIMARY KEY (student_id,address_id);
 ALTER TABLE student_address ADD CONSTRAINT FK_student_address_0 FOREIGN KEY (student_id) REFERENCES student (id) ON DELETE CASCADE;
-ALTER TABLE student_address ADD CONSTRAINT FK_student_address_1 FOREIGN KEY (address_id) REFERENCES address (id) ON DELETE SET NULL;
+ALTER TABLE student_address ADD CONSTRAINT FK_student_address_1 FOREIGN KEY (address_id) REFERENCES address (id) ON DELETE CASCADE;
 
 
 CREATE TABLE student_lesson (
