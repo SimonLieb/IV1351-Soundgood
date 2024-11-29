@@ -76,16 +76,10 @@ ALTER TABLE ensemble ADD CONSTRAINT FK_ensemble_0 FOREIGN KEY (instructor_id) RE
 
 CREATE TABLE pricing_scheme (
     id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
-    beginner_solo_price FLOAT(50) NOT NULL,
-    intermediate_solo_price FLOAT(50) NOT NULL,
-    advanced_solo_price FLOAT(50) NOT NULL,
-    beginner_group_price FLOAT(50) NOT NULL,
-    intermediate_group_price FLOAT(50) NOT NULL,
-    advanced_group_price FLOAT(50) NOT NULL,
-    beginner_ensemble_price FLOAT(50) NOT NULL,
-    intermediate_ensemble_price FLOAT(50) NOT NULL,
-    advanced_ensemble_price FLOAT(50) NOT NULL,
-    sibling_discount FLOAT(50),
+    lesson_type VARCHAR(50) NOT NULL,
+    lesson_level INT NOT NULL,
+    price NUMERIC(10,2) NOT NULL,
+    sibling_discount NUMERIC(10,2),--defines how big the student discount is for this pricing scheme. can be null. 
     start_time TIMESTAMP WITH TIME ZONE NOT NULL,
     end_time TIMESTAMP WITH TIME ZONE
 );
@@ -95,7 +89,7 @@ ALTER TABLE pricing_scheme ADD CONSTRAINT PK_pricing_scheme PRIMARY KEY (id);
 
 CREATE TABLE rental_price_scheme (
     id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
-    monthly_cost FLOAT(50) NOT NULL,
+    monthly_cost NUMERIC(10,2) NOT NULL,
     start_time TIMESTAMP WITH TIME ZONE NOT NULL,
     end_time TIMESTAMP WITH TIME ZONE
 );
@@ -168,10 +162,7 @@ CREATE TABLE instrument (
     id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
     type VARCHAR(25) NOT NULL,
     brand VARCHAR(25),
-    name VARCHAR(50) NOT NULL,
-    rental_start_time TIMESTAMP WITH TIME ZONE,
-    rental_end_time TIMESTAMP WITH TIME ZONE,
-    student_id INT
+    name VARCHAR(50) NOT NULL
 );
 
 ALTER TABLE instrument ADD CONSTRAINT PK_instrument PRIMARY KEY (id);
@@ -202,19 +193,30 @@ ALTER TABLE ensemble_fee ADD CONSTRAINT FK_ensemble_fee_0 FOREIGN KEY (ensemble_
 ALTER TABLE ensemble_fee ADD CONSTRAINT FK_ensemble_fee_1 FOREIGN KEY (student_id) REFERENCES student (id) ON DELETE SET NULL;--no action wouldnt be helpful either, and cascade deleting will make us lose 
 ALTER TABLE ensemble_fee ADD CONSTRAINT FK_ensemble_fee_2 FOREIGN KEY (pricing_scheme_id) REFERENCES pricing_scheme (id) ON DELETE SET NULL;--potentially vital billing records.
 
+CREATE TABLE student_instrument_rental(
+    id INT GENERATED ALWAYS AS IDENTITY,
+    student_id INT NOT NULL,
+    instrument_id, INT NOT NULL,
+    rental_price_scheme_id INT NOT NULL,
+    rental_start_time TIMESTAMP WITH TIME ZONE NOT NULL,
+    rental_end_time TIMESTAMP WITH TIME ZONE
+)
+
+ALTER TABLE student_instrument_rental ADD CONSTRAINT PK_student_instrument_rental PRIMARY KEY (id);
+ALTER TABLE student_instrument_rental ADD CONSTRAINT FK_student_instrument_rental_0 FOREIGN KEY (student_id) REFERENCES student (id) ON DELETE SET NULL;--not sure with these.. setting null makes the financial record useless, but
+ALTER TABLE student_instrument_rental ADD CONSTRAINT FK_student_instrument_rental_1 FOREIGN KEY (instrument_id) REFERENCES instrument (id) ON DELETE SET NULL;--no action wouldnt be helpful either, and cascade deleting will make us lose 
+ALTER TABLE student_instrument_rental ADD CONSTRAINT FK_student_instrument_rental_2 FOREIGN KEY (rental_price_scheme_id) REFERENCES rental_price_scheme (id) ON DELETE SET NULL;--potentially vital billing records.
+
+
 
 CREATE TABLE rental_payment (
     id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
-    payment_date TIMESTAMP WITH TIME ZONE,-- can be null. if null -> we havent paid yet. otherwise, payment has been made.
-    instrument_id INT NOT NULL,
-    student_id INT NOT NULL,
-    rental_price_scheme_id INT NOT NULL
+    student_instrument_rental_id INT NOT NULL,
+    payment_date TIMESTAMP WITH TIME ZONE-- can be null. if null -> we havent paid yet. otherwise, payment has been made.
 );
 
 ALTER TABLE rental_payment ADD CONSTRAINT PK_rental_payment PRIMARY KEY (id);
-ALTER TABLE rental_payment ADD CONSTRAINT FK_rental_payment_0 FOREIGN KEY (instrument_id) REFERENCES instrument (id) ON DELETE SET NULL;
-ALTER TABLE rental_payment ADD CONSTRAINT FK_rental_payment_1 FOREIGN KEY (student_id) REFERENCES student (id) ON DELETE SET NULL;
-ALTER TABLE rental_payment ADD CONSTRAINT FK_rental_payment_2 FOREIGN KEY (rental_price_scheme_id) REFERENCES rental_price_scheme (id) ON DELETE SET NULL;
+ALTER TABLE rental_payment ADD CONSTRAINT FK_rental_payment_0 FOREIGN KEY (student_instrument_rental_id) REFERENCES student_instrument_rental (id) ON DELETE SET NULL;
 
 
 CREATE TABLE instructor_instrument (
