@@ -166,7 +166,6 @@ CREATE TABLE instrument (
 );
 
 ALTER TABLE instrument ADD CONSTRAINT PK_instrument PRIMARY KEY (id);
-ALTER TABLE instrument ADD CONSTRAINT FK_instrument_0 FOREIGN KEY (student_id) REFERENCES student (id) ON DELETE SET NULL;-- instrument should not be deleted just because current renter got deleted
 
 
 CREATE TABLE lesson_fee (
@@ -196,18 +195,16 @@ ALTER TABLE ensemble_fee ADD CONSTRAINT FK_ensemble_fee_2 FOREIGN KEY (pricing_s
 CREATE TABLE student_instrument_rental(
     id INT GENERATED ALWAYS AS IDENTITY,
     student_id INT NOT NULL,
-    instrument_id, INT NOT NULL,
+    instrument_id INT NOT NULL,
     rental_price_scheme_id INT NOT NULL,
     rental_start_time TIMESTAMP WITH TIME ZONE NOT NULL,
     rental_end_time TIMESTAMP WITH TIME ZONE
-)
+);
 
 ALTER TABLE student_instrument_rental ADD CONSTRAINT PK_student_instrument_rental PRIMARY KEY (id);
 ALTER TABLE student_instrument_rental ADD CONSTRAINT FK_student_instrument_rental_0 FOREIGN KEY (student_id) REFERENCES student (id) ON DELETE SET NULL;--not sure with these.. setting null makes the financial record useless, but
 ALTER TABLE student_instrument_rental ADD CONSTRAINT FK_student_instrument_rental_1 FOREIGN KEY (instrument_id) REFERENCES instrument (id) ON DELETE SET NULL;--no action wouldnt be helpful either, and cascade deleting will make us lose 
 ALTER TABLE student_instrument_rental ADD CONSTRAINT FK_student_instrument_rental_2 FOREIGN KEY (rental_price_scheme_id) REFERENCES rental_price_scheme (id) ON DELETE SET NULL;--potentially vital billing records.
-
-
 
 CREATE TABLE rental_payment (
     id INT GENERATED ALWAYS AS IDENTITY NOT NULL,

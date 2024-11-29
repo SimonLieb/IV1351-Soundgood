@@ -39,11 +39,11 @@ VALUES
 -- Lessons
 INSERT INTO lesson (instrument_type, start_time, end_time, locale, min_num_of_students, max_num_of_students, lvl, instructor_id)
 VALUES
-    ('Guitar', '2024-11-16 10:00:00+00', '2024-11-16 12:00:00+00', 'Room 104', 1, 5, 1, 1),
-    ('Piano', '2024-11-16 13:00:00+00', '2024-11-16 15:00:00+00', 'Room 230', 1, 3, 2, 2),
-    ('Drums', '2024-11-16 09:00:00+00', '2024-11-16 11:00:00+00', 'Aula Magna', 2, 6, 3, 3),
-    ('Violin', '2024-11-16 16:00:00+00', '2024-11-16 18:00:00+00', 'Cantina', 1, 4, 2, 4),
-    ('Flute', '2024-11-16 18:00:00+00', '2024-11-16 20:00:00+00', 'Room 301', 1, 5, 1, 5);
+    ('Guitar', '2024-11-16 10:00:00+00', '2024-11-16 12:00:00+00', 'Room 104', 1, 1, 1, 1),
+    ('Piano', '2024-11-16 13:00:00+00', '2024-11-16 15:00:00+00', 'Room 230', 1, 1, 2, 2),
+    ('Drums', '2024-11-16 09:00:00+00', '2024-11-16 11:00:00+00', 'Aula Magna', 2, 3, 3, 3),
+    ('Violin', '2024-11-16 16:00:00+00', '2024-11-16 18:00:00+00', 'Cantina', 2, 4, 2, 4),
+    ('Flute', '2024-11-16 18:00:00+00', '2024-11-16 20:00:00+00', 'Room 301', 2, 5, 1, 5);
 
 -- Ensembles
 INSERT INTO ensemble (start_time, end_time, genre, locale, min_num_of_students, max_num_of_students, lvl, instructor_id)
@@ -55,14 +55,26 @@ VALUES
     ('2024-11-16 18:00:00+00', '2024-11-16 20:00:00+00', 'K-Pop','Room 301', 1, 5, 1, 5);
 
 -- Pricing Scheme
-INSERT INTO pricing_scheme (beginner_solo_price, intermediate_solo_price, advanced_solo_price, beginner_group_price, intermediate_group_price, advanced_group_price, beginner_ensemble_price, intermediate_ensemble_price, advanced_ensemble_price, sibling_discount, start_time, end_time)
+INSERT INTO pricing_scheme (lesson_type, lesson_level, price, sibling_discount, start_time, end_time)
 VALUES
-    (50.00, 60.00, 70.00, 70.00, 80.00, 90.00, 100.00, 110.00, 120.00, 50,'2024-01-01 00:00:00+00', '2024-12-31 23:59:59+00');
+    ('solo', 1, 249.99, 25, '2024-01-01 00:00:00+00', '2024-12-31 23:59:59+00'),
+    ('solo', 2, 299.99, 25, '2024-01-01 00:00:00+00', '2024-12-31 23:59:59+00'),
+    ('solo', 3, 349.99, 25, '2024-01-01 00:00:00+00', '2024-12-31 23:59:59+00'),
+    ('group', 1, 249.99, 25, '2024-01-01 00:00:00+00', '2024-12-31 23:59:59+00'),
+    ('group', 2, 299.99, 25, '2024-01-01 00:00:00+00', '2024-12-31 23:59:59+00'),
+    ('group', 3, 349.99, 25, '2024-01-01 00:00:00+00', '2024-12-31 23:59:59+00'),
+    ('ensemble', 1, 249.99, 25, '2024-01-01 00:00:00+00', '2024-12-31 23:59:59+00'),
+    ('ensemble', 2, 299.99, 25, '2024-01-01 00:00:00+00', '2024-12-31 23:59:59+00'),
+    ('ensemble', 3, 349.99, 25, '2024-01-01 00:00:00+00', '2024-12-31 23:59:59+00');
 
 -- Rental Price Scheme
 INSERT INTO rental_price_scheme (monthly_cost, start_time, end_time)
 VALUES
-    (30.00, '2024-01-01 00:00:00+00', '2024-12-31 23:59:59+00');
+    (99.99, '2020-01-01 00:00:00+00', '2020-12-31 23:59:59+00'),
+    (120.00, '2021-01-01 00:00:00+00', '2021-12-31 23:59:59+00'),
+    (149.99, '2022-01-01 00:00:00+00', '2022-12-31 23:59:59+00'),
+    (199.99, '2023-01-01 00:00:00+00', '2023-12-31 23:59:59+00'),
+    (249.99, '2024-01-01 00:00:00+00', '2024-12-31 23:59:59+00');
 
 -- Students
 INSERT INTO student (ssn, name, mail, gender, enrollment_date, phone_number)
@@ -116,13 +128,13 @@ VALUES
     (3, 4);
 
 -- Instruments
-INSERT INTO instrument (type, brand, name, rental_start_time, rental_end_time, student_id)
+INSERT INTO instrument (type, brand, name)
 VALUES
-    ('Guitar', 'Fender', 'Stratocaster', '2024-01-01 00:00:00+00', '2024-12-31 23:59:59+00', 1),
-    ('Piano', 'Yamaha', 'U1', NULL, NULL, 2),
-    ('Drums', 'Pearl', 'Masters', '2024-05-01 00:00:00+00', '2024-11-30 23:59:59+00', 3),
-    ('Violin', 'Stradivarius', 'Model 1710', NULL, NULL, NULL),
-    ('Flute', 'Gemeinhardt', 'Model 3SHB', '2024-06-01 00:00:00+00', '2024-12-31 23:59:59+00', 5);
+    ('Guitar', 'Fender', 'Stratocaster'),
+    ('Piano', 'Yamaha', 'U1'),
+    ('Drums', 'Pearl', 'Masters'),
+    ('Violin', 'Stradivarius', 'Model 1710'),
+    ('Flute', 'Gemeinhardt', 'Model 3SHB');
 
 -- Lesson Fees (with payment_date if already paid)
 INSERT INTO lesson_fee (lesson_id, student_id, pricing_scheme_id, payment_date)
@@ -142,14 +154,22 @@ VALUES
     (4, 4, 1, NULL),
     (5, 5, 1, '2024-11-15 10:00:00+00');
 
--- Rental Payments
-INSERT INTO rental_payment (payment_date, instrument_id, student_id, rental_price_scheme_id)
+--Instrument rentals
+INSERT INTO student_instrument_rental(student_id, instrument_id, rental_price_scheme_id, rental_start_time, rental_end_time)
 VALUES
-    ('2024-11-10 10:00:00+00', 1, 1, 1),
-    ('2024-11-11 10:00:00+00', 2, 2, 1),
-    ('2024-11-12 10:00:00+00', 3, 3, 1),
-    ('2024-11-13 10:00:00+00', 4, 4, 1),
-    ('2024-11-14 10:00:00+00', 5, 5, 1);
+    (1, 1, 1, '2024-11-15 10:00:00+00', NULL), -- Ongoing rental
+    (2, 1, 1, '2024-11-15 10:00:00+00', '2024-12-15 10:00:00+00'), -- Finished rental
+    (3, 2, 1, '2024-11-01 08:30:00+00', '2024-11-15 08:30:00+00'), -- Short rental
+    (4, 3, 1, '2024-10-15 09:00:00+00', NULL), -- Long-term ongoing
+    (5, 4, 1, '2024-11-20 10:00:00+00', '2024-12-20 10:00:00+00'); -- Scheduled rental
+
+
+-- Rental Payments
+INSERT INTO rental_payment (payment_date, student_instrument_rental_id)
+VALUES
+    ('2024-11-10 10:00:00+00', 2),
+    ('2024-11-11 10:00:00+00', 3),
+    ('2024-11-12 10:00:00+00', 5);
 
 -- Instructor Instruments
 INSERT INTO instructor_instrument (instructor_id, instrument_id, teaching_level)
