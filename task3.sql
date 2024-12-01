@@ -23,4 +23,8 @@ LEFT JOIN
      WHERE 
          DATE_TRUNC('month', start_time) = DATE_TRUNC('month', CURRENT_DATE) 
      GROUP BY 
-         instructor_id) e ON i.id = e.instructor_id;
+         instructor_id) e ON i.id = e.instructor_id
+WHERE 
+    COALESCE(l.lesson_count, 0) + COALESCE(e.ensemble_count, 0) > 2  --threshold is 2 here, we change as we need to.
+ORDER BY 
+    total_lesson_count DESC;
