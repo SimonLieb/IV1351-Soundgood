@@ -239,23 +239,23 @@ VALUES
     ('2024-11-12 10:00:00+00', 5);
 
 -- Instructor Instruments
-INSERT INTO instructor_instrument (instructor_id, instrument_id, teaching_level)
+INSERT INTO instructor_instrument (instructor_id, instrument_type, teaching_level)
 VALUES
-    (1, 1, 2), -- Instructor 1, Guitar (Stratocaster), Level 2
-    (2, 1, 1), -- Instructor 2, Guitar (Stratocaster), Level 1
-    (2, 2, 3), -- Instructor 2, Piano (U1), Level 3
-    (2, 4, 2), -- Instructor 2, Violin (Model 1710), Level 2
-    (3, 1, 3), -- Instructor 3, Guitar (Stratocaster), Level 3
-    (4, 5, 1), -- Instructor 4, Flute (Model 3SHB), Level 1
-    (5, 2, 2), -- Instructor 5, Piano (K-300), Level 2
-    (1, 3, 3), -- Instructor 1, Drums (Masters), Level 3
-    (3, 6, 2), -- Instructor 3, Guitar (Les Paul), Level 2
-    (4, 7, 1), -- Instructor 4, Violin (Del Gesù), Level 1
-    (2, 8, 3), -- Instructor 2, Drums (Classic Maple), Level 3
-    (1, 9, 2), -- Instructor 1, Flute (EX), Level 2
-    (5, 10, 3), -- Instructor 5, Trumpet (Stradivarius), Level 3
-    (4, 11, 2), -- Instructor 4, Clarinet (E11), Level 2
-    (3, 12, 1), -- Instructor 3, Trombone (YSL-354), Level 1
-    (2, 13, 3), -- Instructor 2, Cello (Model C200), Level 3
-    (1, 14, 2), -- Instructor 1, Bass Guitar (SR305), Level 2
-    (5, 15, 1); -- Instructor 5, Electric Guitar (Custom 24), Level 1
+    (1, 'Guitar', 2), -- Instructor 1, Guitar (Stratocaster), Level 2
+    (2, 'Guitar', 1), -- Instructor 2, Guitar (Stratocaster), Level 1
+    (2, 'Piano', 3), -- Instructor 2, Piano (U1), Level 3
+    (2, 'Violin', 2), -- Instructor 2, Violin (Model 1710), Level 2
+    (3, 'Guitar', 3), -- Instructor 3, Guitar (Stratocaster), Level 3
+    (4, 'Flute', 1), -- Instructor 4, Flute (Model 3SHB), Level 1
+    (5, 'Piano', 2), -- Instructor 5, Piano (K-300), Level 2
+    (1, 'Drums', 3), -- Instructor 1, Drums (Masters), Level 3
+    (3, 'Guitar', 2), -- Instructor 3, Guitar (Les Paul), Level 2
+    (4, 'Violin', 1), -- Instructor 4, Violin (Del Gesù), Level 1
+    (2, 'Drums', 3), -- Instructor 2, Drums (Classic Maple), Level 3
+    (1, 'Flute', 2), -- Instructor 1, Flute (EX), Level 2
+    (5, 'Trumpet', 3), -- Instructor 5, Trumpet (Stradivarius), Level 3
+    (4, 'Clarinet', 2), -- Instructor 4, Clarinet (E11), Level 2
+    (3, 'Trombone', 1), -- Instructor 3, Trombone (YSL-354), Level 1
+    (2, 'Cello', 3), -- Instructor 2, Cello (Model C200), Level 3
+    (1, 'Bass guitar', 2), -- Instructor 1, Bass Guitar (SR305), Level 2
+    (5, 'Electric  guitar', 1); -- Instructor 5, Electric Guitar (Custom 24), Level 1

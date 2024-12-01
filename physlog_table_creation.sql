@@ -217,11 +217,11 @@ ALTER TABLE rental_payment ADD CONSTRAINT FK_rental_payment_0 FOREIGN KEY (stude
 
 
 CREATE TABLE instructor_instrument (
+    id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
     instructor_id INT NOT NULL,
-    instrument_id INT NOT NULL,
+    instrument_type VARCHAR(50) NOT NULL,
     teaching_level INT NOT NULL
 );
 
-ALTER TABLE instructor_instrument ADD CONSTRAINT PK_instructor_instrument PRIMARY KEY (instructor_id,instrument_id);
+ALTER TABLE instructor_instrument ADD CONSTRAINT PK_instructor_instrument PRIMARY KEY (id);
 ALTER TABLE instructor_instrument ADD CONSTRAINT FK_instructor_instrument_0 FOREIGN KEY (instructor_id) REFERENCES instructor (id) ON DELETE CASCADE;
-ALTER TABLE instructor_instrument ADD CONSTRAINT FK_instructor_instrument_1 FOREIGN KEY (instrument_id) REFERENCES instrument (id) ON DELETE CASCADE;
