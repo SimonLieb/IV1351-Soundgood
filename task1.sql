@@ -16,12 +16,13 @@ EnsembleCounts AS (
     GROUP BY EXTRACT(YEAR FROM start_time), EXTRACT(MONTH FROM start_time)
 )
 SELECT 
-    COALESCE(l.Year, e.Year) AS Year,
-    COALESCE(l.Month, e.Month) AS Month,
-    COALESCE(SoloLessons, 0) + COALESCE(GroupLessons, 0) + COALESCE(EnsembleLessons, 0) AS TotalLessons,
-    COALESCE(SoloLessons, 0) AS SoloLessons,
-    COALESCE(GroupLessons, 0) AS GroupLessons,
-    COALESCE(EnsembleLessons, 0) AS EnsembleLessons
+    l.Year AS Year,
+    l.Month AS Month,
+    (l.SoloLessons + l.GroupLessons + e.EnsembleLessons) AS TotalLessons,
+    l.SoloLessons AS SoloLessons,
+    l.GroupLessons AS GroupLessons,
+    e.EnsembleLessons AS EnsembleLessons
 FROM LessonCounts l
-FULL OUTER JOIN EnsembleCounts e ON l.Year = e.Year AND l.Month = e.Month
+INNER JOIN EnsembleCounts e 
+    ON l.Year = e.Year AND l.Month = e.Month
 ORDER BY Year, Month;
