@@ -1,7 +1,7 @@
 SELECT 
     i.id AS instructor_id,
     i.name AS instructor_name,
-    COALESCE(l.lesson_count, 0) + COALESCE(e.ensemble_count, 0) AS total_lesson_count
+    l.lesson_count + e.ensemble_count AS total_lesson_count
 FROM 
     instructor i
 LEFT JOIN 
@@ -25,6 +25,6 @@ LEFT JOIN
      GROUP BY 
          instructor_id) e ON i.id = e.instructor_id
 WHERE 
-    COALESCE(l.lesson_count, 0) + COALESCE(e.ensemble_count, 0) > 2  --threshold is 2 here, we change as we need to.
+    l.lesson_count + e.ensemble_count > 2  -- threshold is 2 here, we change as needed
 ORDER BY 
     total_lesson_count DESC;
