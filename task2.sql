@@ -1,18 +1,18 @@
 SELECT 
-    COALESCE(sibling_count.count, 0) AS number_of_siblings,
+    sibling_count.sibling_count AS number_of_siblings,
     COUNT(s.id) AS student_count
 FROM 
     student s
 LEFT JOIN 
     (SELECT 
-         student_id_1 AS student_id, COUNT(*) AS count 
+         student_id_1 AS student_id, COUNT(*) AS sibling_count 
      FROM 
          student_siblings 
      GROUP BY 
          student_id_1
      UNION ALL
      SELECT 
-         student_id_2 AS student_id, COUNT(*) AS count 
+         student_id_2 AS student_id, COUNT(*) AS sibling_count 
      FROM 
          student_siblings 
      GROUP BY 
@@ -20,6 +20,6 @@ LEFT JOIN
 ON 
     s.id = sibling_count.student_id
 GROUP BY 
-    sibling_count.count
+    sibling_count.sibling_count
 ORDER BY 
     number_of_siblings;
